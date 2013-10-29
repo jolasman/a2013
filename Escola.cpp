@@ -12,13 +12,11 @@ string Escola::escolherMarca()
 	string marca;
 
 	cout << "[*] Seleccione a marca do veiculo: " << endl;
-	getline(cin, marca);
-	cin.clear();	
+	getline(cin, marca);	
 
 	if(marca.size() == 0)
 	{
 		strutils.print_error_message("[!] O campo \"marca\" nao pode estar vazio!");
-		cin.clear();
 		escolherMarca();
 	}
 
@@ -27,7 +25,6 @@ string Escola::escolherMarca()
 		if(!isalpha(marca[i]))
 		{
 			strutils.print_error_message("[!] O campo \"marca\" nao pode conter numeros!");
-			cin.clear();
 			escolherMarca();
 		}
 	}
@@ -41,17 +38,26 @@ string Escola::escolherMatricula()
 {
 	string matricula;
 
+	cout << "[*] Seleccione a matricula do veiculo: " << endl;
 	getline(cin, matricula);
-	cin.clear();
 
-	while(!strutils.check_matricula(matricula))
+	while(!strutils.check_matricula(matricula) || matricula_existe(matricula))
 	{
 		strutils.print_error_message("[!] Matricula invalida! Tentar novamente...");
-		cin.clear();
 		getline(cin, matricula);
 	}
 
 	return matricula;
+}
+
+
+bool Escola::matricula_existe(string matricula)
+{
+	for(size_t i = 0; i < veiculos.size(); i++)
+		if(veiculos[i] -> getMatricula() == matricula)
+			return true;
+
+	return false;
 }
 
 
@@ -64,23 +70,18 @@ bool Escola::adicionarVeiculo()
 	unsigned int ultima_inspecao;
 	cout << "[*] Que veiculo quer adicionar? (L)igeiro, (P)esado, (M)otociclo" << endl;
 	getline(cin, s);
-	cin.clear();
 
-	while(s.size() != 1 && s != "L" || s != "P" || s != "M" || s != "l" || s != "p" || s != "m")
+	while(s.size() != 1 || (s != "L" && s != "P" && s != "M" && s != "l" && s != "p" && s != "m"))
 	{
 		strutils.print_error_message("[!] Veiculo invalido! Escolher novamente...");
-		s = "";
 		getline(cin, s);
-		cin.clear();
 	}
 
-	cout << "[*] Escolha a marca do veiculo: " << endl;
 	marca = escolherMarca();
 
-	cout << "[*] Escolha a matricula do veiculo: " << endl;
 	matricula = escolherMatricula();
 
-	cout << "[*] Escolha o ano de fabrico do veiculo: " << endl;
+	cout << "[*] Seleccione o ano de fabrico do veiculo: " << endl;
 	cin >> ano_fabrico;
 
 	while(ano_fabrico > 2013)
@@ -88,14 +89,19 @@ bool Escola::adicionarVeiculo()
 		cin.clear();
 		strutils.print_error_message("[!] Ano de fabrico do veiculo errado. Escolha novamente...");
 		cin >> ano_fabrico;
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
 	}
 
 	cout << "[*] Se o veiculo ja foi inspeccionado seleccione a data, caso contrário escreva 0" << endl;
 	cin >> ultima_inspecao;
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
 
-	if(ultima_inspecao != 0 && ultima_inspecao > 2013)
+	if(ultima_inspecao > 2013)
 	{
 		cin.clear();
+		cin.ignore(INT_MAX, '\n');
 		strutils.print_error_message("[!] Ano da ultima inspecao errado. Seleccione novamente...");
 		cin >> ultima_inspecao;
 	}
@@ -114,4 +120,12 @@ bool Escola::adicionarVeiculo()
 		Motociclo *m = new Motociclo(marca, matricula, ano_fabrico, ultima_inspecao);
 		veiculos.push_back(m);
 	}
+
+	return true;
+}
+
+
+vector<Veiculo *> Escola::getTodosVeiculos()
+{
+	return veiculos;
 }

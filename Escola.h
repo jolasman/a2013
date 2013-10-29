@@ -22,8 +22,10 @@ private:
 public:
 	Escola();
 	bool adicionarVeiculo();
+	bool matricula_existe(string matricula);
 	string escolherMarca();
 	string escolherMatricula();
+	vector<Veiculo *> getTodosVeiculos();
 };
 
 #endif

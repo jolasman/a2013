@@ -23,7 +23,7 @@ string Veiculo::getMarca() const
 
 unsigned int Veiculo::getProximaInspecao() const
 {
-	return proxima_inspecao;
+	return ultima_inspecao + 4;
 }
 
 
@@ -54,7 +54,7 @@ bool Veiculo::setMatricula(string matricula)
 }
 
 
-void Veiculo::setProximaInspecao(unsigned int proxima_inspecao)
+void Veiculo::setProximaInspecao()
 {
 	unsigned int i = getUltimaInspecao();
 	this -> proxima_inspecao = i + 4;

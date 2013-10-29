@@ -24,9 +24,9 @@ public:
 	unsigned int getAnoFabrico() const;
 	string getMarca() const;
 	unsigned int getUltimaInspecao() const;
-	unsigned int getProximaInspecao() const;
+	virtual unsigned int getProximaInspecao() const;
 	bool setMatricula(string matricula);
-	virtual void setProximaInspecao(unsigned int proxima_inspecao);
+	virtual void setProximaInspecao();
 	void setUltimaInspecao(unsigned int ultima_inspecao);
 	virtual int getTipoVeiculo() const;
 	~Veiculo();

@@ -14,9 +14,15 @@ int VeiculoPesado::getTipoVeiculo() const
 }
 
 
-void VeiculoPesado::setProximaInspecao(unsigned int proxima_inspecao)
+void VeiculoPesado::setProximaInspecao()
 {
 	unsigned int i = getUltimaInspecao();
 
 	this -> proxima_inspecao = i + 2;
+}
+
+
+unsigned int VeiculoPesado::getProximaInspecao() const
+{
+	return ultima_inspecao + 1;
 }

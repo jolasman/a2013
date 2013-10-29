@@ -14,9 +14,15 @@ int Motociclo::getTipoVeiculo() const
 }
 
 
-void Motociclo::setProximaInspecao(unsigned int proxima_inspecao)
+void Motociclo::setProximaInspecao()
 {
 	unsigned int i = getProximaInspecao();
 
 	this -> proxima_inspecao = i + 1;
+}
+
+
+unsigned int Motociclo::getProximaInspecao() const 
+{
+	return ultima_inspecao + 2;
 }

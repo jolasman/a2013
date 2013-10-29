@@ -11,6 +11,7 @@ class VeiculoPesado : public Veiculo
 public:
 	VeiculoPesado(string marca, string matricula, unsigned int ano_fabrico, unsigned int ultima_inspecao = 0);
 	int getTipoVeiculo() const;
-	void setProximaInspecao(unsigned int proxima_inspecao);
+	void setProximaInspecao();
+	unsigned int getProximaInspecao() const;
 };
 #endif
